@@ -14,13 +14,6 @@ class Dashboard extends CI_Controller {
 		$this->load->model('user/gigs_model', 'gigs_model');
 		$this->load->model('user/users_model', 'users_model');
 		if (isset($vs_id) && (isset($vs_user_role_id) && $vs_user_role_id >= 1)) {
-			// /* ok */
-			// $res_nums = $this->general_model->check_controller_permission_access('Admin/Dashboard', $vs_user_role_id, '1');
-			// if ($res_nums > 0) {
-			// 	/* ok */
-			// } else {
-			// 	redirect('/');
-			// }
 		} else {
 			redirect('login');
 		}
@@ -33,6 +26,6 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('frontend/index', $data);
+		$this->load->view('frontend/index');
 	}
 }

@@ -20,7 +20,7 @@
             <div class="sidebar-user-material-body">
                 <div class="card-body text-center">
                     <a href="#">
-                        <img src="<?php echo admin_asset_url(); ?>global_assets/images/placeholders/placeholder.jpg" class="img-fluid rounded-circle shadow-1 mb-3" width="80" height="80" alt="" />
+                        <img src="<?php echo user_asset_url(); ?>global_assets/images/placeholders/placeholder.jpg" class="img-fluid rounded-circle shadow-1 mb-3" width="80" height="80" alt="" />
                     </a>
                     <h6 class="mb-0 text-white text-shadow-dark"><?php echo $this->session->userdata('vs_user_username'); ?></h6>
                     <!-- <span class="font-size-sm text-white text-shadow-dark">Santa Ana, CA</span> -->

@@ -118,6 +118,12 @@ class Account extends CI_Controller
 
 	public function profile()
 	{
+		$this->dbs_user_id = $vs_id = $this->session->userdata('vs_user_id');
+		$this->login_usr_role_id = $this->dbs_user_role_id = $vs_user_role_id = $this->session->userdata('vs_user_role_id');
+		if (isset($vs_id) && (isset($vs_user_role_id) && $vs_user_role_id >= 1)) {
+		} else {
+			redirect('login');
+		}
 		if ($_POST && !empty($_POST)) {
 			echo json_encode($_POST);
 			die();
