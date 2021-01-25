@@ -27,7 +27,9 @@
 <script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/forms/styling/switchery.min.js"></script>
 <script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/ui/moment/moment.min.js"></script>
 <script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/pickers/daterangepicker.js"></script>
-	<script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+<!-- for validation -->
+<script src="<?php echo user_asset_url(); ?>global_assets/jquery.validate.js"></script>
 
 <script src="<?php echo user_asset_url(); ?>js/app.js"></script>
 <script src="<?php echo user_asset_url(); ?>global_assets/js/demo_pages/dashboard.js"></script>
@@ -42,4 +44,5 @@
 <script src="<?php echo user_asset_url(); ?>global_assets/js/demo_charts/pages/dashboard/light/pies.js"></script>
 <script src="<?php echo user_asset_url(); ?>global_assets/js/demo_charts/pages/dashboard/light/bullets.js"></script>
 <!-- /theme JS files -->
-<!-- <link rel="shortcut icon" href="<?php // echo user_asset_url(); ?>images/favicon.png" type="image/x-icon"> -->
+<!-- <link rel="shortcut icon" href="<?php // echo user_asset_url(); 
+										?>images/favicon.png" type="image/x-icon"> -->

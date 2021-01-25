@@ -76,30 +76,42 @@
                             </div>
 
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="password" name="password" class="form-control" placeholder="Password" data-error="#password1">
-                                <div class="form-control-feedback">
-                                    <i class="icon-user-lock text-muted"></i>
-                                </div>
-                                <span id="password1" class="text-danger"><?php echo form_error('password'); ?></span>
-                            </div>
-
-                            <div class="form-group text-center text-muted content-divider">
-                                <span class="px-2">Your contacts</span>
-                            </div>
-
-                            <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" name="email" id="email" class="form-control" placeholder="Your email" data-error="#email1">
+                                <input type="text" name="email" class="form-control" placeholder="Your email" data-error="#email1">
                                 <div class="form-control-feedback">
                                     <i class="icon-mention text-muted"></i>
                                 </div>
                                 <span id="email1" class="text-danger"><?php echo form_error('email'); ?></span>
                             </div>
+
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" name="confirm_email" class="form-control" placeholder="Repeat email" data-error="#confirm_email1">
+                                <input type="text" name="fname" class="form-control" placeholder="First name" data-error="#fname1">
                                 <div class="form-control-feedback">
                                     <i class="icon-mention text-muted"></i>
                                 </div>
-                                <span id="confirm_email1" class="text-danger"><?php echo form_error('confirm_email'); ?></span>
+                                <span id="fname1" class="text-danger"><?php echo form_error('fname'); ?></span>
+                            </div>
+
+                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                <input type="text" name="lname" class="form-control" placeholder="Last name" data-error="#lname1">
+                                <div class="form-control-feedback">
+                                    <i class="icon-mention text-muted"></i>
+                                </div>
+                                <span id="lname1" class="text-danger"><?php echo form_error('lname'); ?></span>
+                            </div>
+
+                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password" data-error="#password1">
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-lock text-muted"></i>
+                                </div>
+                                <span id="password1" class="text-danger"><?php echo form_error('password'); ?></span>
+                            </div>
+                            <div class="form-group form-group-feedback form-group-feedback-left">
+                                <input type="password" name="confirm_password" class="form-control" placeholder="Confirm password" data-error="#confirm_password1">
+                                <div class="form-control-feedback">
+                                    <i class="icon-user-lock text-muted"></i>
+                                </div>
+                                <span id="confirm_password1" class="text-danger"><?php echo form_error('confirm_password'); ?></span>
                             </div>
                             <button type="submit" class="btn bg-teal-400 btn-block legitRipple">Register <i class="icon-circle-right2 ml-2"></i></button>
                         </div>
@@ -120,6 +132,12 @@
                     username: {
                         required: true,
                     },
+                    fname: {
+                        required: true,
+                    },
+                    lname: {
+                        required: true,
+                    },
                     password: {
                         required: true
                     },
@@ -127,15 +145,20 @@
                         required: true,
                         email: true
                     },
-                    confirm_email: {
+                    confirm_password: {
                         required: true,
-                        email: true,
-                        equalTo: "#email"
+                        equalTo: "#password"
                     }
                 },
                 messages: {
                     username: {
                         required: "Username is required field"
+                    },
+                    fname: {
+                        required: "First name is required field"
+                    },
+                    lname: {
+                        required: "Last name is required field"
                     },
                     password: {
                         required: "Password is required field"
@@ -144,10 +167,9 @@
                         required: "Email is required field",
                         email: "Please enter a valid Email address!"
                     },
-                    confirm_email: {
-                        required: "Repeat Email is required field",
-                        email: "Please enter a valid Email address!",
-                        equalTo: "Both email should be same"
+                    confirm_password: {
+                        required: "Confirm Password is required field",
+                        equalTo: "Both passwords should match"
                     }
                 },
                 errorPlacement: function(error, element) {
