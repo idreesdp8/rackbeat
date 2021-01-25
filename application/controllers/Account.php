@@ -112,8 +112,22 @@ class Account extends CI_Controller
 				// die();
 				$insert_data = $this->users_model->insert_user_data($datas);
 				if (isset($insert_data)) {
-					$this->session->set_flashdata('success_msg', 'Your account has been created successfully, please login to access your account!');
-					redirect("login");
+					$result = $this->users_model->get_user_by_id($insert_data);
+					
+						// set session	
+						$cstm_sess_data = array(
+							'vs_user_login' => TRUE,
+							'vs_user_id' => $result->id,
+							'vs_user_role_id' => $result->role_id,
+							'vs_user_username' => ucfirst($result->username),
+							'vs_user_email' => $result->email
+						);
+
+						$this->session->set_userdata($cstm_sess_data);
+
+						redirect("dashboard");
+					// $this->session->set_flashdata('success_msg', 'Your account has been created successfully, please login to access your account!');
+					// redirect("login");
 				} else {
 					$this->session->set_flashdata('error_msg', 'An error has been generated while creating an account, please try again!');
 					redirect('register');
