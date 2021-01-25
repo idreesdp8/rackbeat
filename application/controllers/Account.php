@@ -27,8 +27,12 @@ class Account extends CI_Controller
 
 			if ($this->form_validation->run() == FALSE) {
 				// validation fail 
-				$this->session->set_flashdata('error_msg', 'Login Failed');
-				redirect('login');
+				if (isset($_SESSION['error_msg'])) {
+					unset($_SESSION['error_msg']);
+				}
+				$this->load->view('frontend/account/signin');
+				// $this->session->set_flashdata('error_msg', 'Login Failed');
+				// redirect('login');
 			} else {
 				// check for user credentials
 				/*$password = md5($password);*/
@@ -60,7 +64,7 @@ class Account extends CI_Controller
 						$this->load->view('frontend/account/signin');
 					}
 				} else {
-					$this->session->set_flashdata('error_msg', 'An error has been generated while creating an account, please try again!');
+					$this->session->set_flashdata('error_msg', 'Email or Password is incorrect!');
 					redirect('login');
 				}
 			}
@@ -85,8 +89,12 @@ class Account extends CI_Controller
 
 			if ($this->form_validation->run() == FALSE) {
 				// validation fail 
-				$this->session->set_flashdata('error_msg', 'An error has been generated while creating an account, please try again!');
-				redirect('register');
+				if (isset($_SESSION['error_msg'])) {
+					unset($_SESSION['error_msg']);
+				}
+				$this->load->view('frontend/account/signup');
+				// $this->session->set_flashdata('error_msg', 'An error has been generated while creating an account, please try again!');
+				// redirect('register');
 			} else {
 				$password = $this->general_model->safe_ci_encoder($password);
 				$role = $this->roles_model->get_role_by_name('User');

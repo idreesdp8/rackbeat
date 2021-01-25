@@ -27,6 +27,8 @@
 
   <!-- Theme JS files -->
   <script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<!-- for validation -->
+	<script src="<?php echo user_asset_url(); ?>global_assets/jquery.validate.js"></script>
 
   <script src="<?php echo user_asset_url(); ?>js/app.js"></script>
   <script src="<?php echo user_asset_url(); ?>global_assets/js/demo_pages/login.js"></script>
@@ -53,7 +55,7 @@
           </div>
         <?php } ?>
         <!-- Login form -->
-        <form class="login-form" action="<?php echo site_url('account/signin'); ?>" method="post">
+        <form class="login-form" id="datas_form" action="<?php echo site_url('account/signin'); ?>" method="post">
           <div class="card mb-0">
             <div class="card-body">
               <div class="text-center mb-3">
@@ -62,17 +64,19 @@
                 <span class="d-block text-muted">Your credentials</span>
               </div>
               <div class="form-group form-group-feedback form-group-feedback-left">
-                <input type="text" name="username" class="form-control" placeholder="Username" />
+                <input type="text" name="username" class="form-control" placeholder="Username" data-error="#username1"/>
                 <div class="form-control-feedback">
                   <i class="icon-user text-muted"></i>
                 </div>
+                <span id="username1" class="text-danger"><?php echo form_error('username'); ?></span>
               </div>
 
               <div class="form-group form-group-feedback form-group-feedback-left">
-                <input type="password" name="password" class="form-control" placeholder="Password" />
+                <input type="password" name="password" class="form-control" placeholder="Password" data-error="#password1"/>
                 <div class="form-control-feedback">
                   <i class="icon-lock2 text-muted"></i>
                 </div>
+                <span id="password1" class="text-danger"><?php echo form_error('password'); ?></span>
               </div>
 
               <div class="form-group d-flex align-items-center">
@@ -113,6 +117,41 @@
     <!-- /main content -->
   </div>
   <!-- /page content -->
+
+  
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var validator = $('#datas_form').validate({
+        rules: {
+          username: {
+            required: true,
+          },
+          password: {
+            required: true
+          }
+        },
+        messages: {
+          username: {
+            required: "Username is required field"
+          },
+          password: {
+            required: "Password is required field"
+          }
+        },
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        submitHandler: function() {
+          document.forms["datas_form"].submit();
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

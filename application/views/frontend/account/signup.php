@@ -27,6 +27,8 @@
 
     <!-- Theme JS files -->
     <script src="<?php echo user_asset_url(); ?>global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <!-- for validation -->
+    <script src="<?php echo user_asset_url(); ?>global_assets/jquery.validate.js"></script>
 
     <script src="<?php echo user_asset_url(); ?>js/app.js"></script>
     <script src="<?php echo user_asset_url(); ?>global_assets/js/demo_pages/login.js"></script>
@@ -53,7 +55,7 @@
                     </div>
                 <?php } ?>
                 <!-- Login form -->
-                <form class="login-form" action="<?php echo site_url('account/signup'); ?>" method="post">
+                <form class="login-form" id="datas_form" action="<?php echo site_url('account/signup'); ?>" method="post">
                     <div class="card mb-0">
                         <div class="card-body">
                             <div class="text-center mb-3">
@@ -66,18 +68,19 @@
                                 <span class="px-2">Your credentials</span>
                             </div>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" name="username" class="form-control" placeholder="Username">
+                                <input type="text" name="username" class="form-control" placeholder="Username" data-error="#username1">
                                 <div class="form-control-feedback">
                                     <i class="icon-user-check text-muted"></i>
                                 </div>
-                                <!-- <span class="form-text text-danger"><i class="icon-cancel-circle2 mr-2"></i> This username is already taken</span> -->
+                                <span id="username1" class="text-danger"><?php echo form_error('username'); ?></span>
                             </div>
 
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="password" name="password" class="form-control" placeholder="Password">
+                                <input type="password" name="password" class="form-control" placeholder="Password" data-error="#password1">
                                 <div class="form-control-feedback">
                                     <i class="icon-user-lock text-muted"></i>
                                 </div>
+                                <span id="password1" class="text-danger"><?php echo form_error('password'); ?></span>
                             </div>
 
                             <div class="form-group text-center text-muted content-divider">
@@ -85,16 +88,18 @@
                             </div>
 
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" name="email" class="form-control" placeholder="Your email">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="Your email" data-error="#email1">
                                 <div class="form-control-feedback">
                                     <i class="icon-mention text-muted"></i>
                                 </div>
+                                <span id="email1" class="text-danger"><?php echo form_error('email'); ?></span>
                             </div>
                             <div class="form-group form-group-feedback form-group-feedback-left">
-                                <input type="text" name="confirm_email" class="form-control" placeholder="Repeat email">
+                                <input type="text" name="confirm_email" class="form-control" placeholder="Repeat email" data-error="#confirm_email1">
                                 <div class="form-control-feedback">
                                     <i class="icon-mention text-muted"></i>
                                 </div>
+                                <span id="confirm_email1" class="text-danger"><?php echo form_error('confirm_email'); ?></span>
                             </div>
                             <button type="submit" class="btn bg-teal-400 btn-block legitRipple">Register <i class="icon-circle-right2 ml-2"></i></button>
                         </div>
@@ -107,6 +112,58 @@
         <!-- /main content -->
     </div>
     <!-- /page content -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var validator = $('#datas_form').validate({
+                rules: {
+                    username: {
+                        required: true,
+                    },
+                    password: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    confirm_email: {
+                        required: true,
+                        email: true,
+                        equalTo: "#email"
+                    }
+                },
+                messages: {
+                    username: {
+                        required: "Username is required field"
+                    },
+                    password: {
+                        required: "Password is required field"
+                    },
+                    email: {
+                        required: "Email is required field",
+                        email: "Please enter a valid Email address!"
+                    },
+                    confirm_email: {
+                        required: "Repeat Email is required field",
+                        email: "Please enter a valid Email address!",
+                        equalTo: "Both email should be same"
+                    }
+                },
+                errorPlacement: function(error, element) {
+                    var placement = $(element).data('error');
+                    if (placement) {
+                        $(placement).append(error)
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                submitHandler: function() {
+                    document.forms["datas_form"].submit();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
