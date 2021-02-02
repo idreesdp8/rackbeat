@@ -4,6 +4,18 @@
 <head>
     <?php $this->load->view('frontend/layout/meta_tags'); ?>
     <title>Designer</title>
+    <style>
+        .preview {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .link {
+            color: inherit;
+        }
+        .link:hover {
+            color: inherit;
+        }
+    </style>
 </head>
 
 <body>
@@ -69,7 +81,10 @@
                                 <div class="card">
                                     <div class="card-header bg-light d-flex justify-content-between">
                                         <span class="font-size-sm text-uppercase font-weight-semibold">Name: <?php echo $design->name ?></span>
-                                        <span class="preview" data-toggle="modal" data-target="#modal_onshow" data-value="<?php echo $design->id ?>"><i class="fas fa-eye"></i></span>
+                                        <div>
+                                            <a class="link" href="<?php echo user_base_url() ?>prints/design?id=<?php echo $design->id ?>"><i class="fas fa-print"></i></a>
+                                            <span class="preview" data-toggle="modal" data-target="#modal_onshow" data-value="<?php echo $design->id ?>"><i class="fas fa-eye"></i></span>
+                                        </div>
                                     </div>
 
                                     <div class="card-body">
@@ -86,98 +101,6 @@
                         <?php
                         endforeach;
                         ?>
-                        <!-- <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header bg-light d-flex justify-content-between">
-                                <span class="font-size-sm text-uppercase font-weight-semibold">Name: Tux</span>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h6 class="card-title">Type: Amet</h6>
-                                <p class="card-text">Width: 4cm</p>
-                                <p>Heigh: 6cm"</p>
-                                <p>W Location: Right</p>
-                                <p>H Location: Top</p>
-                                <p>Size: 10cm</p>
-                                <p>Font Style: Poppins</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header bg-light d-flex justify-content-between">
-                                <span class="font-size-sm text-uppercase font-weight-semibold">Name: Tux</span>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h6 class="card-title">Type: Amet</h6>
-                                <p class="card-text">Width: 4cm</p>
-                                <p>Heigh: 6cm"</p>
-                                <p>W Location: Right</p>
-                                <p>H Location: Top</p>
-                                <p>Size: 10cm</p>
-                                <p>Font Style: Poppins</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header bg-light d-flex justify-content-between">
-                                <span class="font-size-sm text-uppercase font-weight-semibold">Name: Tux</span>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h6 class="card-title">Type: Amet</h6>
-                                <p class="card-text">Width: 4cm</p>
-                                <p>Heigh: 6cm"</p>
-                                <p>W Location: Right</p>
-                                <p>H Location: Top</p>
-                                <p>Size: 10cm</p>
-                                <p>Font Style: Poppins</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header bg-light d-flex justify-content-between">
-                                <span class="font-size-sm text-uppercase font-weight-semibold">Name: Tux</span>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h6 class="card-title">Type: Amet</h6>
-                                <p class="card-text">Width: 4cm</p>
-                                <p>Heigh: 6cm"</p>
-                                <p>W Location: Right</p>
-                                <p>H Location: Top</p>
-                                <p>Size: 10cm</p>
-                                <p>Font Style: Poppins</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header bg-light d-flex justify-content-between">
-                                <span class="font-size-sm text-uppercase font-weight-semibold">Name: Tux</span>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h6 class="card-title">Type: Amet</h6>
-                                <p class="card-text">Width: 4cm</p>
-                                <p>Heigh: 6cm"</p>
-                                <p>W Location: Right</p>
-                                <p>H Location: Top</p>
-                                <p>Size: 10cm</p>
-                                <p>Font Style: Poppins</p>
-                            </div>
-                        </div>
-                    </div> -->
-
-
                     </div>
                 <?php
                 endif;
