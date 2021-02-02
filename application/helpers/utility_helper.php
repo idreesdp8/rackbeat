@@ -43,37 +43,13 @@
 	function profile_thumbnail_image_url(){
 		return base_url().profile_thumbnail_relative_path();
 	}
-	
-	function poster_relative_path(){
-		return 'downloads/posters/';
+
+	function barcode_relative_path(){
+		return 'downloads/barcodes/';
 	}
 
-	function poster_thumbnail_relative_path(){
-		return 'downloads/posters/thumb/';
-	}
-	
-	function bundle_relative_path(){
-		return 'downloads/bundles/';
-	}
-
-	function bundle_thumbnail_relative_path(){
-		return 'downloads/bundles/thumb/';
-	}
-
-	function poster_url(){
-		return base_url().poster_relative_path();
-	}
-
-	function poster_thumbnail_url(){
-		return base_url().poster_thumbnail_relative_path();
-	}
-
-	function bundle_url(){
-		return base_url().bundle_relative_path();
-	}
-
-	function bundle_thumbnail_url(){
-		return base_url().bundle_thumbnail_relative_path();
+	function barcode_url(){
+		return base_url().barcode_relative_path();
 	}
 	
 ?>

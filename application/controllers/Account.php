@@ -53,6 +53,8 @@ class Account extends CI_Controller
 							'vs_user_id' => $result->id,
 							'vs_user_role_id' => $result->role_id,
 							'vs_user_username' => ucfirst($result->username),
+							'vs_user_fname' => ucfirst($result->fname),
+							'vs_user_lname' => ucfirst($result->lname),
 							'vs_user_email' => $result->email
 						);
 
