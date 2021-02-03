@@ -168,12 +168,6 @@
                                     <p class="item" style="font-size: 14px;">Qty: 1</p>
                                     <p class="item" style="font-size: 14px;">Lot #: 24/01/2021</p>
                                 </div>
-                                <?php
-                                // require 'vendor/autoload.php';
-                                // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-                                // echo file_put_contents('barcode.png', $generator->getBarcode('081231723897', $generator::TYPE_CODE_128, 3, 50));
-                                // $image = $generator->getBarcode('081231723897', $generator::TYPE_CODE_128);
-                                ?>
                                 <img src="<?php echo $default_barcode; ?>" alt="" style="padding: 10px; width: 100%;">
                                 <p class="item">Made in: United States of America</p>
                             </div>

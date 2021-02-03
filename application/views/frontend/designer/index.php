@@ -183,7 +183,7 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response.message === 200) {
                             $('#preview_img').attr('src', response.image);
                             $('.item').css('font-family', response.data.font_style);

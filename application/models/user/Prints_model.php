@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Designs_model extends CI_Model
+class Prints_model extends CI_Model
 {
 
 	function __construct()
@@ -15,7 +15,6 @@ class Designs_model extends CI_Model
 		return true;
 	}
 
-
 	function get_all_designs()
 	{
 		$query = $this->db->get('designs');
@@ -29,9 +28,9 @@ class Designs_model extends CI_Model
 		return $query->row();
 	}
 
-	function insert_design_data($data)
+	function insert_print_data($data)
 	{
-		$ress = $this->db->insert('designs', $data) ? $this->db->insert_id() : false;
+		$ress = $this->db->insert('prints', $data) ? $this->db->insert_id() : false;
 		return $ress;
 	}
 

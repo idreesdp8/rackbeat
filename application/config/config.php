@@ -38,6 +38,8 @@ $config['base_url'] = 'https://rackbeatlabel.dp8staging.com';
 */
 $config['index_page'] = 'index.php';
 
+$config['api_token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNmM4MDczODRmYzg2Mjk0YzUwMDIxNDgyNzRkOGY5MzgzMDgzYmY3MTk4NDE4ZjE0Y2VlNzYzMDljMzc2NDI3YzdjZGJkNzZiYmQxM2Q2NWYiLCJpYXQiOiIxNjEyMTY0Njg4Ljg0ODk4MyIsIm5iZiI6IjE2MTIxNjQ2ODguODQ4OTg3IiwiZXhwIjoiMTkyNzY5NzQ4OC43OTM5NTUiLCJzdWIiOiIxMzQxIiwic2NvcGVzIjpbXX0.qCEF-sSBjge0b5J6W2wt_YDJ8D8rGJ9NkMNckWvDOIVv0DZOIRei0NgMTuleOVPBnEQo5Z6zoQc6uNw9xry9mqG1DssR1DdCaATnaxqT9J_ojqmKQYYP-4SkGbEwCaaT56DwPfNmnY1gD8sT2tjTOZKL7uSogdXV8EHbpg9QWPvhulEBnJ8QYosGPI1vrlamo5kezvSd5vdZqGRv_Cb_kZQ064jyJaepNQ10BlD29VYboDZrJ-mSm_GYaF_5lIirMf5WY6VWf_D_CBFkWwJ6eu1YUt0u2se4P552ZzFRIJhpr5PYSe3EpIE0V7Y0jyUCliLLzeTfRe7pZP8oJdOHVCqMx-dCDMr4xgEt8t5t6qzIv4xKMsjMrhUQurabcExMMwXa8Dzii5HktWvv-10KEXqiZZQfBTh8BNsWCAxOJv2K6P0aYUtI33hxR06QwjPvt5rmgEKxwtAqwwONhTqn39BeI5afjyIXnrUw_wYHmo8qkz4mCtUWe6P4M0uQiLpK4uh-EseEVfKbmdLeFpdFl0OwsSWqocZfu_RiyqIsxb9uvcfFpKVICciOJn3cTzmWQehUYOfEvvyDM2hmrjDaoqzV7NgcKOfbLQzhV9EnnGEJlcyR8usxYvBk-U5L7p2l8Fd4evH6qUMR2Y1zb64u7jcEXz6pNldJuqrKWoBGQ7k';
+
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
