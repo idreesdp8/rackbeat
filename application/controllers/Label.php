@@ -50,8 +50,33 @@ class Label extends CI_Controller
 		// die();
 		$response = json_decode($response);
 		$data['products'] = $response->products;
+		$data['pages'] = $response->pages;
+		$data['curr_page'] = $response->page;
 		$data['designs'] = $designs;
 		$this->load->view('frontend/label/index', $data);
+	}
+	public function load_page()
+	{
+		$page_no = $this->input->post('page_no');
+		$url = "https://app.rackbeat.com/api/products?page=$page_no";
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($ch, CURLOPT_HEADER, FALSE);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			"Authorization: Bearer $this->api_token"
+		));
+		$response = curl_exec($ch);
+		curl_close($ch);
+		$designs = $this->designs_model->get_all_designs();
+		// echo $response;
+		// die();
+		$response = json_decode($response);
+		$data['products'] = $response->products;
+		$data['pages'] = $response->pages;
+		$data['curr_page'] = $response->page;
+		$data['designs'] = $designs;
+		$this->load->view('frontend/label/index_partial', $data);
 	}
 
 	public function get_product()

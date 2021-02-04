@@ -60,16 +60,20 @@
                 <?php } ?>
                 <!-- Main charts -->
                 <div class="row mb-3">
-                    <!-- <div class="col-xl-12">
+                    <div class="col-xl-12">
+                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
                         <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
-                            <li class="page-item prev disabled"><a href="#" class="page-link">Prev</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item next"><a href="#" class="page-link">Next</a></li>
+                            <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
+                            <?php
+                            for ($i = 1; $i <= $pages; $i++) {
+                            ?>
+                                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                            <?php
+                            }
+                            ?>
+                            <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
                         </ul>
-                    </div> -->
+                    </div>
                 </div>
 
                 <?php
@@ -98,7 +102,7 @@
 
                                         <ul class="list-inline mb-0">
                                             <button type="button" class="btn text-left">View</button>
-                                            <button type="button" class="btn bg-indigo print" data-value="<?php echo $product->urlfriendly_number ?>" data-toggle="modal" data-target="#modal_theme_primary">Print</button>
+                                            <button type="button" class="btn bg-indigo" onClick="return print_modal('<?php echo $product->urlfriendly_number; ?>');" data-toggle="modal" data-target="#modal_theme_primary">Print</button>
                                         </ul>
                                     </div>
                                 </div>
@@ -118,7 +122,7 @@
                                 <button type="button" class="close" data-dismiss="modal">×</button>
                             </div>
 
-                            <form action="<?php echo site_url('prints/label'); ?>" method="post">
+                            <form action="<?php echo site_url('prints/label'); ?>" method="post" id="datas_form">
                                 <div class="modal-body">
                                     <div class="row">
                                         <input type="hidden" name="product_id" id="product_id">
@@ -126,7 +130,8 @@
                                             <fieldset>
                                                 <div class="form-group">
                                                     <label>Stock</label>
-                                                    <input type="text" class="form-control" name="qty" id="qty" placeholder="">
+                                                    <input type="text" class="form-control" name="qty" id="qty" onchange="changeQty(this)" placeholder="" data-error="#qty1">
+                                                    <span id="qty1" class="text-danger"><?php echo form_error('qty'); ?></span>
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -134,7 +139,7 @@
                                             <fieldset>
                                                 <div class="form-group">
                                                     <label>Designs</label>
-                                                    <select name="design_id" id="design" class="form-control select">
+                                                    <select name="design_id" id="design_id" onchange="changeDesign(this)" class="form-control select" data-error="#design_id1">
                                                         <option value="">Choose Design</option>
                                                         <?php
                                                         if ($designs) :
@@ -146,6 +151,7 @@
                                                         endif;
                                                         ?>
                                                     </select>
+                                                    <span id="design_id1" class="text-danger"><?php echo form_error('design_id'); ?></span>
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -170,21 +176,56 @@
                                     <button type="submit" class="btn bg-indigo" id="print">Print</button>
                                 </div>
                             </form>
+                            <script>
+                                var validator = $('#datas_form').validate({
+                                    rules: {
+                                        design_id: {
+                                            required: true,
+                                        },
+                                        qty: {
+                                            required: true,
+                                        },
+                                    },
+                                    messages: {
+                                        design_id: {
+                                            required: "Design is required field"
+                                        },
+                                        qty: {
+                                            required: "Stock is required field"
+                                        },
+                                    },
+                                    errorPlacement: function(error, element) {
+                                        var placement = $(element).data('error');
+                                        if (placement) {
+                                            $(placement).append(error)
+                                        } else {
+                                            error.insertAfter(element);
+                                        }
+                                    },
+                                    submitHandler: function() {
+                                        document.forms["datas_form"].submit();
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-xl-12">
-                        <ul class="pagination-flat float-right twbs-flat pagination">
-                            <li class="page-item prev disabled"><a href="#" class="page-link">Prev</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item next"><a href="#" class="page-link">Next</a></li>
+                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
+                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
+                            <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
+                            <?php
+                            for ($i = 1; $i <= $pages; $i++) {
+                            ?>
+                                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                            <?php
+                            }
+                            ?>
+                            <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
                         </ul>
                     </div>
-                </div> -->
+                </div>
                 <!-- /main charts -->
             </div>
             <!-- /main content -->
@@ -194,73 +235,90 @@
 
 
     <script>
+        const base_url = '<?php echo user_base_url() ?>';
         $(document).ready(function() {
             $('#label-menu').addClass('active');
-            const base_url = '<?php echo user_base_url() ?>';
+        });
 
-            $('.print').click(function() {
-                var id = $(this).attr('data-value');
-                $('#product_id').val(id);
-                // console.log(id);
-                $.ajax({
-                    url: base_url + 'label/get_product',
-                    type: 'post',
-                    data: {
-                        id: id
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        // console.log(response);
-                        if (response.message === 200) {
-                            $('#preview2').hide();
-                            $('#preview1').show();
-                            $('#print').attr('disabled', false);
-                            if (response.data) {
-                                $('#preview_img').attr('src', response.image);
-                            }
-                        } else {
-                            $('#preview1').hide();
-                            $('#preview2').show();
-                            $('#print').attr('disabled', true);
-                        }
-                    }
-                });
-            });
-            $('#design').change(function() {
-                var id = $(this).val();
-                $.ajax({
-                    url: base_url + 'designer/get_design',
-                    type: 'post',
-                    data: {
-                        id: id
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        // console.log(response);
-                        if (response.message === 200) {
-                            $('.item').css('font-family', response.data.font_style);
-                        } else {
-                            alert('Error: Something went wrong!');
-                        }
-                    }
-                });
-            });
-            $('#qty').change(function() {
-                $('#item_qty').html('Qty: ' + $(this).val());
-            });
-
+        $(function() {
             $('#modal_theme_primary').on('hide.bs.modal', function() {
                 $('#qty').val('');
                 $('#item_qty').html('Qty: 1');
                 $('.item').css('font-family', '');
-                $('#design').val('');
+                $('#design_id').val('');
                 $('#product_id').val('');
-                $('#select2-design-container').html('Choose Design');
-                $('#select2-design-container').attr('title', 'Choose Design');
+                $('#select2-design_id-container').html('Choose Design');
+                $('#select2-design_id-container').attr('title', 'Choose Design');
                 $('#preview1').hide();
                 $('#preview2').hide();
             });
         });
+
+        function changeQty(el) {
+            $('#item_qty').html('Qty: ' + el.value);
+        }
+
+        function changeDesign(el) {
+            $.ajax({
+                url: base_url + 'designer/get_design',
+                type: 'post',
+                data: {
+                    id: el.value
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response);
+                    if (response.message === 200) {
+                        $('.item').css('font-family', response.data.font_style);
+                    } else {
+                        alert('Error: Something went wrong!');
+                    }
+                }
+            });
+        }
+
+        function print_modal(id) {
+            $('#product_id').val(id);
+            // console.log(id);
+            $.ajax({
+                url: base_url + 'label/get_product',
+                type: 'post',
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    // console.log(response);
+                    if (response.message === 200) {
+                        $('#preview2').hide();
+                        $('#preview1').show();
+                        $('#print').attr('disabled', false);
+                        if (response.data) {
+                            $('#preview_img').attr('src', response.image);
+                        }
+                    } else {
+                        $('#preview1').hide();
+                        $('#preview2').show();
+                        $('#print').attr('disabled', true);
+                    }
+                }
+            });
+        }
+
+        function paginate(page_no) {
+            $.ajax({
+                url: base_url + 'label/load_page',
+                type: 'post',
+                data: {
+                    page_no: page_no
+                },
+                dataType: 'text',
+                success: function(response) {
+                    $('.content').empty();
+                    $('.content').html(response);
+                }
+            });
+        }
     </script>
 </body>
 
