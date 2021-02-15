@@ -4,9 +4,8 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>Username</th>
                 <th>Email</th>
-                <th>Role</th>
-                <th>Address</th>
                 <th>Status</th>
                 <th>Added on</th>
                 <th>Actions</th>
@@ -20,9 +19,8 @@
                 <tr>
                     <td><?php echo $i ?></td>
                     <td><?php echo $record->fname . ' ' . $record->lname ?></td>
+                    <td><?php echo $record->username ?></td>
                     <td><a href="javascript:void(0)"><?php echo $record->email ?></a></td>
-                    <td><?php echo $record->role_name ?></td>
-                    <td><?php echo $record->address ?></td>
                     <td>
                         <?php if ($record->status) : ?>
                             <span class="badge badge-success">Active</span>

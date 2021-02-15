@@ -9,6 +9,7 @@ class Prints extends CI_Controller
 		parent::__construct();
 
 		$this->dbs_user_id = $vs_id = $this->session->userdata('vs_user_id');
+		$this->api_token = $this->session->userdata('vs_user_token');
 		$this->login_usr_role_id = $this->dbs_user_role_id = $vs_user_role_id = $this->session->userdata('vs_user_role_id');
 		// $this->load->model('user/general_model', 'general_model');
 		// $this->load->model('user/permissions_model', 'permissions_model');
@@ -19,7 +20,6 @@ class Prints extends CI_Controller
 			redirect('login');
 		}
 
-		$this->api_token = $this->config->item('api_token');
 		// $this->load->model('user/dashboard_model', 'dashboard_model');
 		// $this->load->model('user/admin_model', 'admin_model');
 		// $this->load->library('Ajax_pagination');

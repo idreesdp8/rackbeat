@@ -61,15 +61,17 @@
                 <!-- Main charts -->
                 <div class="row mb-3">
                     <div class="col-xl-12">
-                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
+                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
                         <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
                             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                             <?php
-                            for ($i = 1; $i <= $pages; $i++) {
+                            if ($pages) :
+                                for ($i = 1; $i <= $pages; $i++) {
                             ?>
-                                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
                             <?php
-                            }
+                                }
+                            endif;
                             ?>
                             <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
                         </ul>
@@ -212,15 +214,17 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
-                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
+                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
                         <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
                             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                             <?php
-                            for ($i = 1; $i <= $pages; $i++) {
+                            if ($pages) :
+                                for ($i = 1; $i <= $pages; $i++) {
                             ?>
-                                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
                             <?php
-                            }
+                                }
+                            endif;
                             ?>
                             <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
                         </ul>

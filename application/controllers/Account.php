@@ -55,7 +55,8 @@ class Account extends CI_Controller
 							'vs_user_username' => ucfirst($result->username),
 							'vs_user_fname' => ucfirst($result->fname),
 							'vs_user_lname' => ucfirst($result->lname),
-							'vs_user_email' => $result->email
+							'vs_user_email' => $result->email,
+							'vs_user_token' => $result->api_key
 						);
 
 						$this->session->set_userdata($cstm_sess_data);
@@ -128,7 +129,8 @@ class Account extends CI_Controller
 						'vs_user_username' => ucfirst($result->username),
 						'vs_user_fname' => ucfirst($result->fname),
 						'vs_user_lname' => ucfirst($result->lname),
-						'vs_user_email' => $result->email
+						'vs_user_email' => $result->email,
+						'vs_user_token' => $result->api_token
 					);
 
 					$this->session->set_userdata($cstm_sess_data);
@@ -194,7 +196,8 @@ class Account extends CI_Controller
 						'vs_user_username' => ucfirst($result->username),
 						'vs_user_fname' => ucfirst($result->fname),
 						'vs_user_lname' => ucfirst($result->lname),
-						'vs_user_email' => $result->email
+						'vs_user_email' => $result->email,
+						'vs_user_token' => $result->api_token
 					);
 
 					$this->session->set_userdata($cstm_sess_data);

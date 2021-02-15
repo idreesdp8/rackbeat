@@ -60,9 +60,6 @@ class Users extends CI_Controller
 
 		// $data['page_headings'] = "Users List";
 		$user = $this->users_model->get_user_by_id($args2);
-		@unlink("downloads/profile_pictures/thumb/$user->image");
-		@unlink("downloads/profile_pictures/$user->image");
-		$this->remove_social_links($args2);
 		$this->users_model->trash_user($args2);
 		$this->session->set_flashdata('deleted_msg', 'User is deleted');
 		redirect('admin/users');
@@ -140,89 +137,37 @@ class Users extends CI_Controller
 			// form validation
 			$this->form_validation->set_rules("fname", "Name", "trim|required|xss_clean");
 			$this->form_validation->set_rules("email", "Email", "trim|required|xss_clean|valid_email{$is_unique_email}");
+			$this->form_validation->set_rules("username", "Username", "trim|required|xss_clean|is_unique[users.username]");
 			$this->form_validation->set_rules("password", "Password", "trim|required|xss_clean");
+			$this->form_validation->set_rules("api_key", "Api Key", "trim|required|xss_clean");
 
 			if ($this->form_validation->run() == FALSE) {
 				// validation fail
-				// $this->load->view('admin/users/add', $data);
-				redirect('admin/users/add');
-			} else {
-
-				$prf_img_error = '';
-				$alw_typs = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
-				// $imagename = (isset($_POST['old_image']) && $_POST['old_image'] != '') ? $_POST['old_image'] : '';
-				$imagename = '';
-				// echo 'gg';
-				if (isset($_FILES['image']['tmp_name']) && $_FILES['image']['tmp_name'] != '') {
-					// echo json_encode($_FILES['image']);
-					if (!(in_array($_FILES['image']['type'], $alw_typs))) {
-						$tmp_img_type = "'" . ($_FILES['image']['type']) . "'";
-						$prf_img_error .= "Profile image type: $tmp_img_type not allowed!<br>";
-						echo $prf_img_error;
-					}
-
-					if ($prf_img_error == '') {
-						$image_path = profile_image_relative_path();
-						$thumbnail_path = profile_thumbnail_relative_path();
-						$imagename = time() . $this->general_model->fileExists($_FILES['image']['name'], $image_path);
-						$target_file = $image_path . $imagename;
-						@move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-						$width = 200;
-						$height = 200;
-						$thumbnail = $this->general_model->_create_thumbnail($imagename, $image_path, $thumbnail_path, $width, $height);
-						if ($thumbnail == '1') {
-							$thumbnail_file = $thumbnail_path . $imagename;
-						}
-						// echo $thumbnail;
-						@move_uploaded_file($_FILES["image"]["tmp_name"], $thumbnail_file);
-					}
-					if (strlen($prf_img_error) > 0) {
-						$this->session->set_flashdata('prof_img_error', $prf_img_error);
-						redirect('admin/users/add');
-						// $this->load->view('admin/users/add', $data);
-					}
+				if (isset($_SESSION['error_msg'])) {
+					unset($_SESSION['error_msg']);
 				}
-
+				$this->load->view('admin/users/add', $data);
+				// redirect('admin/users/add');
+			} else {
 
 				$created_on = date('Y-m-d H:i:s');
 				$password = $this->general_model->safe_ci_encoder($data['password']);
-				$social_links = [];
-				if(isset($data['mail']) && $data['mail'] != ''){
-					$social_links['mail'] = $data['mail'];
-				}
-				if(isset($data['facebook']) && $data['facebook'] != ''){
-					$social_links['facebook'] = $data['facebook'];
-				}
-				if(isset($data['instagram']) && $data['instagram'] != ''){
-					$social_links['instagram'] = $data['instagram'];
-				}
-				if(isset($data['twitter']) && $data['twitter'] != ''){
-					$social_links['twitter'] = $data['twitter'];
-				}
 				$datas = array(
 					'fname' => $data['fname'],
 					'lname' => $data['lname'],
+					'username' => $data['username'],
 					'role_id' => $role->id,
 					'email' => $data['email'],
 					'password' => $password,
-					'mobile_no' => $data['mobile_no'],
-					'phone_no' => $data['phone_no'],
-					'description' => $data['description'],
-					'address' => $data['address'],
-					'country_id' => $data['country_id'],
+					'api_key' => $data['api_key'],
 					'created_on' => $created_on,
 					'status' => $data['status'],
-					'image' => $imagename
 				);
 				// echo json_encode($social_links);
 				// die();
 				$res = $this->users_model->insert_user_data($datas);
 
 				if (isset($res)) {
-					foreach($social_links as $key=>$value){
-						$temp = ['user_id'=>$res, 'platform'=>$key, 'url'=>$value, 'created_on'=>$created_on];
-						$this->users_model->insert_user_social_link($temp);
-					}
 					$this->session->set_flashdata('success_msg', 'User added successfully!');
 				} else {
 					$this->session->set_flashdata('error_msg', 'Error: while adding user!');
@@ -230,8 +175,8 @@ class Users extends CI_Controller
 				redirect("admin/users");
 			}
 		} else {
-			$data['countries'] = $this->countries_model->get_all_countries();
-			$this->load->view('admin/users/add', $data);
+			// $data['countries'] = $this->countries_model->get_all_countries();
+			$this->load->view('admin/users/add');
 		}
 
 		// }else{ 
@@ -260,80 +205,26 @@ class Users extends CI_Controller
 			// get form input
 			$data = $_POST;
 			// echo json_encode($data);
-			// echo json_encode($_FILES['image']);
 			// die();
 
 			// form validation
 			$this->form_validation->set_rules("fname", "Name", "trim|required|xss_clean");
+			$this->form_validation->set_rules("api_key", "Api Key", "trim|required|xss_clean");
 
 			if ($this->form_validation->run() == FALSE) {
 				// validation fail
+				if (isset($_SESSION['error_msg'])) {
+					unset($_SESSION['error_msg']);
+				}
+				// $this->load->view('admin/users/update', $data);
 				redirect('admin/users/update/' . $data['id']);
 			} else {
-
-				$social_links = [];
-				if(isset($data['mail']) && $data['mail'] != ''){
-					$social_links['mail'] = $data['mail'];
-				}
-				if(isset($data['facebook']) && $data['facebook'] != ''){
-					$social_links['facebook'] = $data['facebook'];
-				}
-				if(isset($data['instagram']) && $data['instagram'] != ''){
-					$social_links['instagram'] = $data['instagram'];
-				}
-				if(isset($data['twitter']) && $data['twitter'] != ''){
-					$social_links['twitter'] = $data['twitter'];
-				}
 				$datas = array(
 					'fname' => $data['fname'],
 					'lname' => $data['lname'],
-					'email' => $data['email'],
-					'mobile_no' => $data['mobile_no'],
-					'phone_no' => $data['phone_no'],
-					'description' => $data['description'],
-					'address' => $data['address'],
-					'country_id' => $data['country_id'],
+					'api_key' => $data['api_key'],
 					'status' => $data['status'],
 				);
-
-				$prf_img_error = '';
-				$alw_typs = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
-				// $imagename = (isset($_POST['old_image']) && $_POST['old_image'] != '') ? $_POST['old_image'] : '';
-				if (isset($_FILES['image']['tmp_name']) && $_FILES['image']['tmp_name'] != '') {
-					// echo json_encode($_FILES['image']);
-					// die();
-					if (!(in_array($_FILES['image']['type'], $alw_typs))) {
-						$tmp_img_type = "'" . ($_FILES['image']['type']) . "'";
-						$prf_img_error .= "Profile image type: $tmp_img_type not allowed!<br>";
-					}
-
-					if ($prf_img_error == '') {
-						$user = $this->users_model->get_user_by_id($data['id']);
-						@unlink("downloads/profile_pictures/thumb/$user->image");
-						@unlink("downloads/profile_pictures/$user->image");
-						$image_path = profile_image_relative_path();
-						$thumbnail_path = profile_thumbnail_relative_path();
-						$imagename = time() . $this->general_model->fileExists($_FILES['image']['name'], $image_path);
-						$target_file = $image_path . $imagename;
-						@move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
-						$width = 200;
-						$height = 200;
-						$thumbnail = $this->general_model->_create_thumbnail($imagename, $image_path, $thumbnail_path, $width, $height);
-						if ($thumbnail == '1') {
-							$thumbnail_file = $thumbnail_path . $imagename;
-						}
-						// echo $thumbnail;
-						@move_uploaded_file($_FILES["image"]["tmp_name"], $thumbnail_file);
-						$datas['image'] = $imagename;
-					}
-					if (strlen($prf_img_error) > 0) {
-						$this->session->set_flashdata('prof_img_error', $prf_img_error);
-						redirect('admin/users/update');
-						// $this->load->view('admin/users/add', $data);
-					}
-				}
-				/*$password = md5($password);*/
-				//$password = $this->general_model->encrypt_data($password);
 				if (isset($data['password']) && $data['password'] != '') {
 					$password = $this->general_model->safe_ci_encoder($data['password']);
 					$datas['password'] = $password;
@@ -342,12 +233,6 @@ class Users extends CI_Controller
 				// die();
 				$res = $this->users_model->update_user_data($data['id'], $datas);
 				if (isset($res)) {
-					$created_on = date('Y-m-d H:i:s');
-					$this->remove_social_links($data['id']);
-					foreach($social_links as $key=>$value){
-						$temp = ['user_id'=>$data['id'], 'platform'=>$key, 'url'=>$value, 'created_on'=>$created_on];
-						$this->users_model->insert_user_social_link($temp);
-					}
 					$this->session->set_flashdata('success_msg', 'User updated successfully!');
 				} else {
 					$this->session->set_flashdata('error_msg', 'Error: while updating user!');
@@ -357,19 +242,6 @@ class Users extends CI_Controller
 			}
 		} else {
 			$data['user'] = $this->users_model->get_user_by_id($args1);
-			$data['countries'] = $this->countries_model->get_all_countries();
-			$links = $this->users_model->get_social_links($args1);
-			if(isset($links) && !empty($links)){
-				foreach($links as $key=>$val){
-					$temp[] = [$val->platform=>$val->url];
-				}
-				$data['link'] = $temp;
-			} else {
-				$data['link'] = [];
-			}
-			// echo $temp[3]['twitter'];
-			// echo json_encode($data);
-			// die();
 			$this->load->view('admin/users/update', $data);
 		}
 		// } else {
@@ -396,16 +268,6 @@ class Users extends CI_Controller
 		$data['records'] = $users;
 		$this->load->view('admin/users/index_partial', $data);
 		// echo json_encode($data);
-	}
-
-	function remove_social_links($id)
-	{
-		$links = $this->users_model->get_social_links($id);
-		if (isset($links)) {
-			foreach ($links as $key => $value) {
-				$this->users_model->trash_social_link($value->id);
-			}
-		}
 	}
 	/* users functions ends */
 }
