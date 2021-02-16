@@ -169,7 +169,7 @@
                                     <p class="item" style="font-size: 14px;">Lot #: 24/01/2021</p>
                                 </div>
                                 <img src="<?php echo $default_barcode; ?>" alt="" style="padding: 10px; width: 100%;">
-                                <p class="item">Made in: United States of America</p>
+                                <p class="item">Group: Lorem Ipsum</p>
                             </div>
                         </div>
                     </div>

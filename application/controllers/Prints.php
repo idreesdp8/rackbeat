@@ -65,7 +65,8 @@ class Prints extends CI_Controller
 				$datas = [
 					'design' => $design,
 					'qty' => $data['qty'],
-					'barcode_image' => $data['barcode_image']
+					'barcode_image' => $data['barcode_image'],
+					'product' => $response->product
 				];
 				// echo json_encode($datas);
 				// die();

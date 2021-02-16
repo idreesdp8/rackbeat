@@ -95,15 +95,15 @@
 
                                     <div class="card-body">
                                         <h6 class="card-title">Name: <?php echo $product->name ?></h6>
-                                        <p class="card-text">Group: <?php echo $product->group ? $product->group->name : 'null' ?></p>
-                                        <p>Unit: <?php echo $product->unit ? $product->unit->number : 'null' ?></p>
+                                        <p class="card-text">Group: <?php echo $product->group ? $product->group->name : 'NA' ?></p>
+                                        <p>Unit: <?php echo $product->unit ? $product->unit->number : 'NA' ?></p>
                                     </div>
 
                                     <div class="card-footer d-flex justify-content-between">
                                         <span class="text-muted"></span>
 
                                         <ul class="list-inline mb-0">
-                                            <button type="button" class="btn text-left">View</button>
+                                            <!-- <button type="button" class="btn text-left">View</button> -->
                                             <button type="button" class="btn bg-indigo" onClick="return print_modal('<?php echo $product->urlfriendly_number; ?>');" data-toggle="modal" data-target="#modal_theme_primary">Print</button>
                                         </ul>
                                     </div>
@@ -124,7 +124,7 @@
                                 <button type="button" class="close" data-dismiss="modal">×</button>
                             </div>
 
-                            <form action="<?php echo site_url('prints/label'); ?>" method="post" id="datas_form">
+                            <form action="<?php echo site_url('prints/label'); ?>" method="post" id="datas_form" target="_blank">
                                 <div class="modal-body">
                                     <div class="row">
                                         <input type="hidden" name="product_id" id="product_id">
@@ -158,14 +158,14 @@
                                             </fieldset>
                                         </div>
                                         <div class="col-md-12" id="preview1">
-                                            <p class="item" style="font-size: 16px;">1234-42112-L</p>
-                                            <p class="item" style="font-size: 20px; font-weight: bold;">24213S-23-231-1AJS</p>
+                                            <p class="item" style="font-size: 16px;" id="item_number"></p>
+                                            <p class="item" style="font-size: 20px; font-weight: bold;" id="item_name"></p>
                                             <div class="d-flex justify-content-between">
                                                 <p class="item" id="item_qty" style="font-size: 14px;">Qty: 1</p>
-                                                <p class="item" style="font-size: 14px;">Lot #: 24/01/2021</p>
+                                                <p class="item" style="font-size: 14px;" id="item_lot"></p>
                                             </div>
                                             <img id="preview_img" src="" alt="" style="padding: 10px; width: 100%;">
-                                            <p class="item">Made in: United States of America</p>
+                                            <p class="item" id="item_group"></p>
                                         </div>
                                         <div class="col-md-12" id="preview2">
                                             <p>Barcode not available</p>
@@ -298,6 +298,12 @@
                         $('#preview1').show();
                         $('#print').attr('disabled', false);
                         if (response.data) {
+                            // var temp = ;
+                            var date = new Date(Date.parse(response.data.created_at));
+                            $('#item_number').html(response.data.number);
+                            $('#item_name').html(response.data.name);
+                            $('#item_lot').html('Lot #: ' + date.toLocaleDateString('en-PK'));
+                            $('#item_group').html('Group: ' + response.data.group.name);
                             $('#preview_img').attr('src', response.image);
                         }
                     } else {
