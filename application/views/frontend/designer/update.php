@@ -95,7 +95,7 @@
                                                     <label>W Location</label>
                                                     <select name="w_location" id="w_location" class="form-control select" data-error="#w_location1">
                                                         <option value="">Choose W Location</option>
-                                                        <option value="right" <?php echo $design->w_location == 'right' ? 'selected' : '' ?>">Right</option>
+                                                        <option value="right" <?php echo $design->w_location == 'right' ? 'selected' : '' ?>>Right</option>
                                                         <option value="left" <?php echo $design->w_location == 'left' ? 'selected' : '' ?>>Left</option>
                                                     </select>
                                                     <span id="w_location1" class="text-danger"><?php echo form_error('w_location'); ?></span>
