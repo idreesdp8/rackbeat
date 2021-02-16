@@ -131,7 +131,7 @@
                                         <div class="col-md-6">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <label>Stock</label>
+                                                    <label>Quantity</label>
                                                     <input type="text" class="form-control" name="qty" id="qty" onchange="changeQty(this)" placeholder="" data-error="#qty1">
                                                     <span id="qty1" class="text-danger"><?php echo form_error('qty'); ?></span>
                                                 </div>

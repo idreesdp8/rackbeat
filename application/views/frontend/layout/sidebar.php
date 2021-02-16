@@ -46,12 +46,12 @@
                         <span>Designer</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?php echo user_base_url() ?>config" class="nav-link" id="config-menu">
+                <!-- <li class="nav-item">
+                    <a href="<?php //echo user_base_url() ?>config" class="nav-link" id="config-menu">
                         <i class="fas fa-atom"></i>
                         <span>Config</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-handshake"></i>
