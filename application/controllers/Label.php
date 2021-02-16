@@ -119,8 +119,9 @@ class Label extends CI_Controller
 				];
 			} else {
 				$response = [
-					'message' => 500,
-					'data' => []
+					'message' => 200,
+					'data' => $response->product,
+					'image' => ''
 				];
 			}
 		} else {

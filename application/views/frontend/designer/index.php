@@ -82,7 +82,7 @@
                                     <div class="card-header bg-light d-flex justify-content-between">
                                         <span class="font-size-sm text-uppercase font-weight-semibold">Name: <?php echo $design->name ?></span>
                                         <div>
-                                            <a class="link" href="<?php echo user_base_url() ?>prints/design?id=<?php echo $design->id ?>"><i class="fas fa-print"></i></a>
+                                            <a class="link" href="<?php echo user_base_url() ?>designer/update/<?php echo $design->id ?>"><i class="fas fa-edit"></i></a>
                                             <span class="preview" data-toggle="modal" data-target="#modal_onshow" data-value="<?php echo $design->id ?>"><i class="fas fa-eye"></i></span>
                                         </div>
                                     </div>

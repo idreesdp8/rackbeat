@@ -113,4 +113,60 @@ class Designer extends CI_Controller {
 			$this->load->view('frontend/designer/create', $data);
 		}
 	}
+
+	public function update($args1 = '')
+	{
+		if ($_POST && !empty($_POST)) {
+			$data = $_POST;
+
+			// echo json_encode($data);
+			// die();
+			$this->form_validation->set_rules("name", "Name", "trim|required|xss_clean");
+			$this->form_validation->set_rules("type", "Type", "trim|required|xss_clean");
+			$this->form_validation->set_rules("width", "Width", "trim|required|xss_clean");
+			$this->form_validation->set_rules("height", "Height", "trim|required|xss_clean");
+			$this->form_validation->set_rules("w_location", "W Location", "trim|required|xss_clean");
+			$this->form_validation->set_rules("h_location", "H Location", "trim|required|xss_clean");
+			$this->form_validation->set_rules("size", "Size", "trim|required|xss_clean");
+			$this->form_validation->set_rules("font_style", "Font Style", "trim|required|xss_clean");
+
+			if ($this->form_validation->run() == FALSE) {
+				// validation fail 
+				if (isset($_SESSION['error_msg'])) {
+					unset($_SESSION['error_msg']);
+				}
+				$data['default_barcode'] = barcode_url().'barcode.png';
+				$this->load->view('frontend/designer/update');
+			} else {
+				$datas = array(
+					'width' => $data['width'],
+					'height' => $data['height'],
+					'w_location' => $data['w_location'],
+					'h_location' => $data['h_location'],
+					'name' => $data['name'],
+					'type' => $data['type'],
+					'size' => $data['size'],
+					'font_style' => $data['font_style'],
+					// 'user_id' => $this->dbs_user_id,
+				);
+				// echo json_encode($datas);
+				// echo $data['id'];
+				// die();
+				$update_data = $this->designs_model->update_design_data($data['id'], $datas);
+				if (isset($update_data)) {
+					$this->session->set_flashdata('success_msg', 'Design Updated');
+					redirect("designer");
+				} else {
+					$this->session->set_flashdata('error_msg', 'An error has been generated while updating design, please try again!');
+					$data['default_barcode'] = barcode_url().'barcode.png';
+					redirect('designer/update');
+				}
+			}
+		} else {
+			$data['design'] = $this->designs_model->get_design_by_id($args1);
+			$data['default_barcode'] = barcode_url().'barcode.png';
+			// echo json_encode($data['design']);die();
+			$this->load->view('frontend/designer/update', $data);
+		}
+	}
 }
