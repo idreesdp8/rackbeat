@@ -60,7 +60,10 @@
                 <?php } ?>
                 <!-- Main charts -->
                 <div class="row mb-3">
-                    <div class="col-xl-12">
+                    <div class="col-xl-3">
+                        <input type="text" class="form-control" id="search" placeholder="Search by name..." onchange="searchProduct(this)">
+                    </div>
+                    <div class="col-xl-9">
                         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
                         <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
                             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
@@ -113,6 +116,10 @@
                         endforeach;
                         ?>
                     </div>
+                <?php
+                else :
+                ?>
+                    <div>No Product Found</div>
                 <?php
                 endif;
                 ?>
@@ -321,6 +328,22 @@
                 type: 'post',
                 data: {
                     page_no: page_no
+                },
+                dataType: 'text',
+                success: function(response) {
+                    $('.content').empty();
+                    $('.content').html(response);
+                }
+            });
+        }
+
+        function searchProduct(el) {
+            var search = el.value;
+            $.ajax({
+                url: base_url + 'label/search_product',
+                type: 'post',
+                data: {
+                    search: search
                 },
                 dataType: 'text',
                 success: function(response) {

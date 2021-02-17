@@ -528,6 +528,17 @@ class General_model extends CI_Model {
 			}  
 			 
 		}
+		function array_partial_search( $array, $keyword ) {
+			$found = [];
+			// Loop through each item and check for a match.
+			foreach ( $array as $string ) {
+				// If found somewhere inside the string, add.
+				if ( strpos( $string, $keyword ) !== false ) {
+					$found[] = $string;
+				}
+			}
+			return $found;
+		}
 		 
 		 /* general functions ends */
 						
