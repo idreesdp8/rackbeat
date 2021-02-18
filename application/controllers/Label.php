@@ -157,7 +157,7 @@ class Label extends CI_Controller
 		// Loop through each item and check for a match.
 		foreach ( $array as $key => $value ) {
 			// If found somewhere inside the string, add.
-			if ( strpos( $value, $keyword ) !== false ) {
+			if ( strpos( strtolower($value), strtolower($keyword) ) !== false ) {
 				$found[] = $key;
 			}
 		}
