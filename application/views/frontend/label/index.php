@@ -65,7 +65,7 @@
                     </div>
                     <div class="col-xl-9">
                         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
+                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
                             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                             <?php
                             if ($pages) :
@@ -220,9 +220,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12">
+                    <div class="col-xl-3"></div>
+                    <div class="col-xl-9">
                         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination">
+                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
                             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                             <?php
                             if ($pages) :

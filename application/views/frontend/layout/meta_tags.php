@@ -14,6 +14,8 @@
 <link href="<?php echo user_asset_url(); ?>global_assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css" />
 <!-- /global stylesheets -->
 
+
+
 <!-- Core JS files -->
 <script src="<?php echo user_asset_url(); ?>global_assets/js/main/jquery.min.js"></script>
 <script src="<?php echo user_asset_url(); ?>global_assets/js/main/bootstrap.bundle.min.js"></script>
