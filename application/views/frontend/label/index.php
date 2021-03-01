@@ -19,6 +19,26 @@
         #preview2 p {
             color: #d42f2f;
         }
+
+        .label-pagination {
+            overflow-x: auto !important;
+            max-width: 50% !important;
+            scrollbar-width: thin;
+        }
+
+        .label-pagination::-webkit-scrollbar {
+            width: 12px !important;
+        }
+
+        .label-pagination::-webkit-scrollbar-track {
+            border-radius: 10px;
+        }
+
+
+        .label-pagination::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #ccc;
+        }
     </style>
 </head>
 

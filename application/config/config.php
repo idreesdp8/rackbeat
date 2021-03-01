@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // $config['base_url'] = 'https://rackbeatlabel.dp8staging.com';
 $config['base_url'] = 'http://localhost/CodeIgniter/rackbeat/';
-// $config['base_url'] = 'http://label.vantevo.cloud/';
+// $config['base_url'] = 'https://label.vantevo.cloud/';
 
 /*
 |--------------------------------------------------------------------------

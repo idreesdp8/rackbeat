@@ -50,8 +50,8 @@ class Label extends CI_Controller
 			));
 			$response1 = curl_exec($ch);
 			$response1 = json_decode($response1);
-			$products = $response1->products;
-			$pages = $response1->pages;
+			$products = $response1->products ?? [];
+			$pages = $response1->pages ?? 0;
 			for ($i = 2; $i <= $pages; $i++) {
 				$url = "https://app.rackbeat.com/api/products?page=$i";
 				// $ch = curl_init();
@@ -85,9 +85,9 @@ class Label extends CI_Controller
 			// $this->session->set_productData(['products' => $products]);
 			// echo json_encode($datas);
 			// die();
-			$data['products'] = $response1->products;
-			$data['pages'] = $response1->pages;
-			$data['curr_page'] = $response1->page;
+			$data['products'] = $response1->products ?? [];
+			$data['pages'] = $response1->pages ?? 0;
+			$data['curr_page'] = $response1->page ?? 0;
 			$data['designs'] = $designs;
 		} else {
 			$data['products'] = array();
