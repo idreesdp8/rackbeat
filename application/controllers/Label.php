@@ -87,11 +87,14 @@ class Label extends CI_Controller
 			// die();
 			$data['products'] = $response1->products ?? [];
 			$data['pages'] = $response1->pages ?? 0;
+			// $data['pages'] = 33;
+			$data['count'] = count($products);
 			$data['curr_page'] = $response1->page ?? 0;
 			$data['designs'] = $designs;
 		} else {
 			$data['products'] = array();
 			$data['pages'] = null;
+			$data['count'] = null;
 			$data['curr_page'] = null;
 			$data['designs'] = $designs;
 		}

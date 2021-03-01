@@ -17,17 +17,31 @@ if ($this->session->flashdata('error_msg')) { ?>
     </div>
     <div class="col-xl-9">
         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
-        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
+        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
-            <?php
-            for ($i = 1; $i <= $pages; $i++) {
-            ?>
-                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
-            <?php
-            }
-            ?>
+                        <?php
+                        if ($pages) :
+                            $j = 1;
+                            echo '<div style="float: right;">';
+                            for ($i = 1; $i <= $pages; $i++) {
+                                if ($i == $j || $i % $j == 0) {
+                                    $j += 10;
+                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
+                                }
+                        ?>
+                                <div onClick="return paginate('<?php echo $i; ?>');">
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                </div>
+                        <?php
+                                if ($i % 10 == 0) {
+                                    echo '</ul>';
+                                }
+                            }
+                            echo '</div>';
+                        endif;
+                        ?>
             <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
-        </ul>
+        <!-- </ul> -->
     </div>
 </div>
 
@@ -173,17 +187,31 @@ endif;
     <div class="col-xl-3"></div>
     <div class="col-xl-9">
         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?>">
-        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
+        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
             <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
-            <?php
-            for ($i = 1; $i <= $pages; $i++) {
-            ?>
-                <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
-            <?php
-            }
-            ?>
+                        <?php
+                        if ($pages) :
+                            $j = 1;
+                            echo '<div style="float: right;">';
+                            for ($i = 1; $i <= $pages; $i++) {
+                                if ($i == $j || $i % $j == 0) {
+                                    $j += 10;
+                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
+                                }
+                        ?>
+                                <div onClick="return paginate('<?php echo $i; ?>');">
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                </div>
+                        <?php
+                                if ($i % 10 == 0) {
+                                    echo '</ul>';
+                                }
+                            }
+                            echo '</div>';
+                        endif;
+                        ?>
             <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
-        </ul>
+        <!-- </ul> -->
     </div>
 </div>
 

@@ -21,23 +21,7 @@
         }
 
         .label-pagination {
-            overflow-x: auto !important;
-            max-width: 50% !important;
-            scrollbar-width: thin;
-        }
-
-        .label-pagination::-webkit-scrollbar {
-            width: 12px !important;
-        }
-
-        .label-pagination::-webkit-scrollbar-track {
-            border-radius: 10px;
-        }
-
-
-        .label-pagination::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            background-color: #ccc;
+            justify-content: flex-end;
         }
     </style>
 </head>
@@ -85,19 +69,34 @@
                     </div>
                     <div class="col-xl-9">
                         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
-                            <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
-                            <?php
-                            if ($pages) :
-                                for ($i = 1; $i <= $pages; $i++) {
-                            ?>
-                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
-                            <?php
+                        <!-- <input type="hidden" id="itemCount" value="<?php //echo $count ?? '' 
+                                                                        ?>">
+                        <input type="hidden" id="pageLimit" value="20"> -->
+                        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
+                        <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
+                        <?php
+                        if ($pages) :
+                            $j = 1;
+                            echo '<div style="float: right;">';
+                            for ($i = 1; $i <= $pages; $i++) {
+                                if ($i == $j || $i % $j == 0) {
+                                    $j += 10;
+                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
                                 }
-                            endif;
-                            ?>
-                            <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
-                        </ul>
+                        ?>
+                                <div onClick="return paginate('<?php echo $i; ?>');">
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                </div>
+                        <?php
+                                if ($i % 10 == 0) {
+                                    echo '</ul>';
+                                }
+                            }
+                            echo '</div>';
+                        endif;
+                        ?>
+                        <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
+                        <!-- </ul> -->
                     </div>
                 </div>
 
@@ -243,19 +242,31 @@
                     <div class="col-xl-3"></div>
                     <div class="col-xl-9">
                         <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination">
-                            <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
-                            <?php
-                            if ($pages) :
-                                for ($i = 1; $i <= $pages; $i++) {
-                            ?>
-                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>" onClick="return paginate('<?php echo $i; ?>');"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
-                            <?php
+                        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
+                        <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
+                        <?php
+                        if ($pages) :
+                            $j = 1;
+                            echo '<div style="float: right;">';
+                            for ($i = 1; $i <= $pages; $i++) {
+                                if ($i == $j || $i % $j == 0) {
+                                    $j += 10;
+                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
                                 }
-                            endif;
-                            ?>
-                            <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
-                        </ul>
+                        ?>
+                                <div onClick="return paginate('<?php echo $i; ?>');">
+                                    <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
+                                </div>
+                        <?php
+                                if ($i % 10 == 0) {
+                                    echo '</ul>';
+                                }
+                            }
+                            echo '</div>';
+                        endif;
+                        ?>
+                        <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
+                        <!-- </ul>    -->
                     </div>
                 </div>
                 <!-- /main charts -->
@@ -270,6 +281,12 @@
         const base_url = '<?php echo user_base_url() ?>';
         $(document).ready(function() {
             $('#label-menu').addClass('active');
+            // var options = {
+            //     // domElement: '.page-item',
+            //     limit: parseInt($('#pageLimit').val()),
+            //     total: parseInt($('#itemCount').val())
+            // };
+            // $('.pagination').rpmPagination(options);
         });
 
         $(function() {
@@ -285,6 +302,7 @@
                 $('#preview2').hide();
             });
         });
+
 
         function changeQty(el) {
             $('#item_qty').html('Qty: ' + el.value);
