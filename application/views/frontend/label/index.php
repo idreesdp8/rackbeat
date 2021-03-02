@@ -8,7 +8,7 @@
         #preview1 {
             display: none;
             background: #f3f3f3;
-            padding: .625rem;
+            padding: 0.625rem;
         }
 
         #preview2 {
@@ -22,6 +22,32 @@
 
         .label-pagination {
             justify-content: flex-end;
+        }
+
+        #paging {
+            text-align: right;
+        }
+
+        #paging .double-arrow {
+            height: 20px !important;
+            display: inline-block;
+            background: #324148;
+            padding: 0 7px;
+            border-radius: 30px;
+            color: #fff;
+        }
+
+        #paging .single-arrow {
+            height: 20px !important;
+            display: inline-block;
+            background: #324148;
+            padding: 0 8px;
+            border-radius: 30px;
+            color: #fff;
+        }
+
+        #paging .disabled {
+            background: #8c9ba2;
         }
     </style>
 </head>

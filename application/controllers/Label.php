@@ -89,8 +89,8 @@ class Label extends CI_Controller
 			$data['pages'] = $response1->pages ?? 0;
 			// $data['pages'] = 33;
 			$data['curr_page'] = $response1->page ?? 0;
-			$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)"  title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-			$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+			$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)" class="double-arrow" title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" class="single-arrow" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="double-arrow disabled">&laquo;</span> <span class="single-arrow disabled">&lsaquo;</span>';
+			$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" class="single-arrow" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)"  class="double-arrow" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="single-arrow disabled">&rsaquo;</span> <span class="double-arrow disabled">&raquo;</span>';
 			$data['count'] = count($products);
 			$data['designs'] = $designs;
 		} else {
@@ -124,8 +124,8 @@ class Label extends CI_Controller
 		$data['products'] = $response->products;
 		$data['pages'] = $response->pages;
 		$data['curr_page'] = $response->page;
-		$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)"  title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-		$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+		$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)" class="double-arrow" title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" class="single-arrow" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="double-arrow disabled">&laquo;</span> <span class="single-arrow disabled">&lsaquo;</span>';
+		$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" class="single-arrow" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)"  class="double-arrow" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="single-arrow disabled">&rsaquo;</span> <span class="double-arrow disabled">&raquo;</span>';
 		$data['designs'] = $designs;
 		$this->load->view('frontend/label/index_partial', $data);
 	}
@@ -154,6 +154,8 @@ class Label extends CI_Controller
 		$designs = $this->designs_model->get_all_designs();
 		$data['products'] = $products ?? array();
 		$data['pages'] = '0';
+		$data['prevlink'] = '';
+		$data['nextlink'] = '';
 		$data['curr_page'] = '0';
 		$data['designs'] = $designs;
 		$this->load->view('frontend/label/index_partial', $data);
