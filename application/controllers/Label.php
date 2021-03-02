@@ -83,13 +83,15 @@ class Label extends CI_Controller
 				$insert = $this->sessions_model->insert_session_data($datas);
 			}
 			// $this->session->set_productData(['products' => $products]);
-			// echo json_encode($datas);
+			// echo json_encode($response1);
 			// die();
 			$data['products'] = $response1->products ?? [];
 			$data['pages'] = $response1->pages ?? 0;
 			// $data['pages'] = 33;
-			$data['count'] = count($products);
 			$data['curr_page'] = $response1->page ?? 0;
+			$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)"  title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+			$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+			$data['count'] = count($products);
 			$data['designs'] = $designs;
 		} else {
 			$data['products'] = array();
@@ -122,6 +124,8 @@ class Label extends CI_Controller
 		$data['products'] = $response->products;
 		$data['pages'] = $response->pages;
 		$data['curr_page'] = $response->page;
+		$data['prevlink'] = ($data['curr_page'] > 1) ? '<a href="javascript:void(0)"  title="First page" onClick="return paginate(1);">&laquo;</a> <a href="javascript:void(0)" title="Previous page" onClick="return paginate('.($data['curr_page'] - 1).');">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+		$data['nextlink'] = ($data['curr_page'] < $data['pages']) ? '<a href="javascript:void(0)" title="Next page" onClick="return paginate('.($data['curr_page'] + 1).');">&rsaquo;</a> <a href="javascript:void(0)" title="Last page" onClick="return paginate('.$data['pages'].');">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 		$data['designs'] = $designs;
 		$this->load->view('frontend/label/index_partial', $data);
 	}

@@ -68,35 +68,33 @@
                         <input type="text" class="form-control" id="search" placeholder="Search by name..." onchange="searchProduct(this)">
                     </div>
                     <div class="col-xl-9">
-                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <!-- <input type="hidden" id="itemCount" value="<?php //echo $count ?? '' 
-                                                                        ?>">
-                        <input type="hidden" id="pageLimit" value="20"> -->
-                        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
-                        <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                         <?php
-                        if ($pages) :
-                            $j = 1;
-                            echo '<div style="float: right;">';
-                            for ($i = 1; $i <= $pages; $i++) {
-                                if ($i == $j || $i % $j == 0) {
-                                    $j += 10;
-                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
-                                }
+                        echo '<div id="paging"><p>', $prevlink, ' Page ', $curr_page, ' of ', $pages, ' pages ', $nextlink, ' </p></div>';
+                        ?>
+                        <!-- <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
+                        <?php
+                        // if ($pages) :
+                        //     $j = 1;
+                        //     echo '<div style="float: right;">';
+                        //     for ($i = 1; $i <= $pages; $i++) {
+                        //         if ($i == $j || $i % $j == 0) {
+                        //             $j += 10;
+                        //             echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
+                        //         }
                         ?>
                                 <div onClick="return paginate('<?php echo $i; ?>');">
                                     <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
                                 </div>
                         <?php
-                                if ($i % 10 == 0) {
-                                    echo '</ul>';
-                                }
-                            }
-                            echo '</div>';
-                        endif;
-                        ?>
+                        //     if ($i % 10 == 0) {
+                        //         echo '</ul>';
+                        //     }
+                        // }
+                        // echo '</div>';
+                        // endif;
+                        ?> -->
                         <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
-                        <!-- </ul> -->
+                        <!-- </ul>    -->
                     </div>
                 </div>
 
@@ -241,30 +239,32 @@
                 <div class="row">
                     <div class="col-xl-3"></div>
                     <div class="col-xl-9">
-                        <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
-                        <!-- <ul class="pagination-flat pb-3 float-right twbs-flat pagination label-pagination"> -->
-                        <!-- <li class="page-item prev"><a href="#" class="page-link">Prev</a></li> -->
                         <?php
-                        if ($pages) :
-                            $j = 1;
-                            echo '<div style="float: right;">';
-                            for ($i = 1; $i <= $pages; $i++) {
-                                if ($i == $j || $i % $j == 0) {
-                                    $j += 10;
-                                    echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
-                                }
+                        echo '<div id="paging"><p>', $prevlink, ' Page ', $curr_page, ' of ', $pages, ' pages ', $nextlink, ' </p></div>';
+                        ?>
+                        <!-- <input type="hidden" id="curr_page" value="<?php echo $curr_page ?? '' ?>">
+                        
+                        <?php
+                        // if ($pages) :
+                        //     $j = 1;
+                        //     echo '<div style="float: right;">';
+                        //     for ($i = 1; $i <= $pages; $i++) {
+                        //         if ($i == $j || $i % $j == 0) {
+                        //             $j += 10;
+                        //             echo '<ul class="pagination-flat twbs-flat pagination label-pagination">';
+                        //         }
                         ?>
                                 <div onClick="return paginate('<?php echo $i; ?>');">
                                     <li class="page-item <?php echo $i == $curr_page ? 'active' : '' ?>"><a href="javascript:void(0)" class="page-link"><?php echo $i ?></a></li>
                                 </div>
                         <?php
-                                if ($i % 10 == 0) {
-                                    echo '</ul>';
-                                }
-                            }
-                            echo '</div>';
-                        endif;
-                        ?>
+                        //     if ($i % 10 == 0) {
+                        //         echo '</ul>';
+                        //     }
+                        // }
+                        // echo '</div>';
+                        // endif;
+                        ?> -->
                         <!-- <li class="page-item next"><a href="#" class="page-link">Next</a></li> -->
                         <!-- </ul>    -->
                     </div>
